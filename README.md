@@ -4,7 +4,7 @@ A modular, production-style C++/Qt5 desktop chat application demonstrating real-
 
 ## Demo Video
 
-
+https://github.com/user-attachments/assets/e15c86c4-483b-446a-ac43-b04c6f36d773
 
 ## Screenshots
 
