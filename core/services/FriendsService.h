@@ -19,6 +19,7 @@ public:
     void startPresenceUpdates(int intervalMs = 2000, int64_t staleThresholdMs = 12000);
     void stopPresenceUpdates();
     
+    void setCurrentUser(const QString& userId, const QString& displayName);
     std::vector<User> getFriendsWithPresence() const { return m_friendsWithPresence; }
     
     static std::vector<User> getStaticFriendsList();
@@ -37,4 +38,7 @@ private:
     std::vector<User> m_friendsWithPresence;
     int64_t m_staleThresholdMs = 12000;
     bool m_isUpdating = false;
+    
+    QString m_currentUserId;
+    QString m_currentDisplayName;
 };

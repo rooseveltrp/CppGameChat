@@ -51,6 +51,7 @@ private slots:
         
         connectServiceSignals();
         
+        m_friendsService->setCurrentUser(m_currentUsername, m_currentDisplayName);
         m_presenceService->start(m_currentUsername, m_currentDisplayName, m_config.presenceHeartbeatMs);
         m_chatService->startPolling("global", m_config.pollIntervalMs);
         m_friendsService->startPresenceUpdates(2000, m_config.presenceStaleMs);
