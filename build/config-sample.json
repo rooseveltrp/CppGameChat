@@ -1,0 +1,8 @@
+{
+  "apiKey": "your-firestore-api-key-here",
+  "projectId": "your-firestore-project-id-here",
+  "databaseId": "(default)",
+  "pollIntervalMs": 1200,
+  "presenceHeartbeatMs": 5000,
+  "presenceStaleMs": 12000
+}
