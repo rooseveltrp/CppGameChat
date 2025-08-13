@@ -9,24 +9,42 @@ ChatView::ChatView(QWidget* parent) : QWidget(parent) {
 }
 
 void ChatView::setupUI() {
+    // Set main background
+    setStyleSheet("ChatView { background-color: #131823; }");
+    
     m_mainLayout = new QHBoxLayout(this);
+    m_mainLayout->setSpacing(10);
+    m_mainLayout->setContentsMargins(10, 10, 10, 10);
     
     QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
+    splitter->setStyleSheet("QSplitter::handle { background-color: #0098fa; width: 3px; }");
     
+    // Friends/Players List with gaming theme
     m_friendsList = new QListWidget();
-    m_friendsList->setMaximumWidth(200);
+    m_friendsList->setMaximumWidth(250);
+    m_friendsList->setMinimumWidth(200);
     m_friendsList->setStyleSheet(
         "QListWidget { "
-        "   background-color: #f5f5f5; "
-        "   border: 1px solid #ddd; "
-        "   border-radius: 4px; "
+        "   background-color: #002b4f; "
+        "   border: 2px solid #0098fa; "
+        "   border-radius: 8px; "
+        "   color: #ffffff; "
+        "   font-size: 14px; "
+        "   font-weight: 500; "
+        "   padding: 5px; "
         "}"
         "QListWidget::item { "
-        "   padding: 8px; "
-        "   border-bottom: 1px solid #eee; "
+        "   padding: 10px; "
+        "   border-bottom: 1px solid #1a3651; "
+        "   border-radius: 4px; "
+        "   margin: 2px 0px; "
+        "}"
+        "QListWidget::item:hover { "
+        "   background-color: rgba(0, 152, 250, 0.2); "
         "}"
         "QListWidget::item:selected { "
-        "   background-color: #e8f5e8; "
+        "   background-color: rgba(0, 152, 250, 0.4); "
+        "   border: 1px solid #0098fa; "
         "}"
     );
     
@@ -34,6 +52,7 @@ void ChatView::setupUI() {
     m_rightLayout = new QVBoxLayout(rightWidget);
     
     m_messagesContainer = new QWidget();
+    m_messagesContainer->setStyleSheet("QWidget { background-color: #131823; }");
     m_messagesLayout = new QVBoxLayout(m_messagesContainer);
     m_messagesLayout->addStretch();
     
@@ -42,45 +61,79 @@ void ChatView::setupUI() {
     m_messagesScrollArea->setWidgetResizable(true);
     m_messagesScrollArea->setStyleSheet(
         "QScrollArea { "
-        "   border: 1px solid #ddd; "
-        "   border-radius: 4px; "
-        "   background-color: white; "
+        "   border: 2px solid #0098fa; "
+        "   border-radius: 8px; "
+        "   background-color: #131823; "
+        "}"
+        "QScrollBar:vertical { "
+        "   background-color: #002b4f; "
+        "   width: 12px; "
+        "   border-radius: 6px; "
+        "}"
+        "QScrollBar::handle:vertical { "
+        "   background-color: #0098fa; "
+        "   border-radius: 6px; "
+        "   min-height: 20px; "
+        "}"
+        "QScrollBar::handle:vertical:hover { "
+        "   background-color: #33a7ff; "
         "}"
     );
     
     QWidget* inputWidget = new QWidget();
+    inputWidget->setStyleSheet("QWidget { background-color: #131823; }");
     QHBoxLayout* inputLayout = new QHBoxLayout(inputWidget);
+    inputLayout->setSpacing(10);
     
     m_messageEdit = new QLineEdit();
-    m_messageEdit->setPlaceholderText("Type your message here...");
+    m_messageEdit->setPlaceholderText("💬 Send a message to your allies...");
     m_messageEdit->setStyleSheet(
         "QLineEdit { "
-        "   padding: 8px; "
-        "   border: 2px solid #ddd; "
-        "   border-radius: 4px; "
+        "   padding: 12px 16px; "
+        "   border: 2px solid #002b4f; "
+        "   border-radius: 8px; "
         "   font-size: 14px; "
+        "   background-color: #002b4f; "
+        "   color: #ffffff; "
+        "   selection-background-color: #0098fa; "
+        "   font-weight: 500; "
+        "   outline: none; "
         "}"
         "QLineEdit:focus { "
-        "   border-color: #2E7D32; "
+        "   border: 2px solid #0098fa; "
+        "   background-color: #1a3651; "
+        "   outline: none; "
+        "}"
+        "QLineEdit::placeholder { "
+        "   color: #8ca0b3; "
         "}"
     );
     
-    m_sendButton = new QPushButton("Send");
+    m_sendButton = new QPushButton("⚡ SEND");
     m_sendButton->setStyleSheet(
         "QPushButton { "
-        "   background-color: #2E7D32; "
-        "   color: white; "
-        "   border: none; "
-        "   border-radius: 4px; "
-        "   padding: 8px 16px; "
+        "   background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, "
+        "               stop: 0 #0098fa, stop: 1 #006cc4); "
+        "   color: #ffffff; "
+        "   border: 2px solid #0098fa; "
+        "   border-radius: 8px; "
+        "   padding: 12px 20px; "
         "   font-size: 14px; "
         "   font-weight: bold; "
+        "   min-width: 80px; "
         "}"
         "QPushButton:hover { "
-        "   background-color: #1B5E20; "
+        "   background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, "
+        "               stop: 0 #33a7ff, stop: 1 #0098fa); "
+        "}"
+        "QPushButton:pressed { "
+        "   background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, "
+        "               stop: 0 #006cc4, stop: 1 #004a8c); "
         "}"
         "QPushButton:disabled { "
-        "   background-color: #ccc; "
+        "   background-color: #404040; "
+        "   border-color: #606060; "
+        "   color: #808080; "
         "}"
     );
     m_sendButton->setEnabled(false);
@@ -88,8 +141,17 @@ void ChatView::setupUI() {
     inputLayout->addWidget(m_messageEdit);
     inputLayout->addWidget(m_sendButton);
     
-    m_statusLabel = new QLabel("Ready");
-    m_statusLabel->setStyleSheet("color: #666; font-size: 12px; padding: 4px;");
+    m_statusLabel = new QLabel("🟢 Ready for battle");
+    m_statusLabel->setStyleSheet(
+        "color: #0098fa; "
+        "font-size: 12px; "
+        "padding: 8px; "
+        "font-weight: 500; "
+        "background-color: rgba(0, 43, 79, 0.5); "
+        "border-radius: 4px;"
+    );
+    
+    rightWidget->setStyleSheet("QWidget { background-color: #131823; }");
     
     m_rightLayout->addWidget(m_messagesScrollArea);
     m_rightLayout->addWidget(inputWidget);
@@ -97,7 +159,7 @@ void ChatView::setupUI() {
     
     splitter->addWidget(m_friendsList);
     splitter->addWidget(rightWidget);
-    splitter->setSizes({200, 600});
+    splitter->setSizes({250, 700});
     
     m_mainLayout->addWidget(splitter);
     

@@ -38,7 +38,7 @@ private slots:
             return;
         }
         
-        m_chatView->setStatusMessage("Connecting...");
+        m_chatView->setStatusMessage("⚡ Establishing battlefield connection...");
         m_stackedWidget->setCurrentWidget(m_chatView);
         
         FirestoreConfig firestoreConfig(m_config.apiKey, m_config.projectId);
@@ -56,14 +56,14 @@ private slots:
         m_chatService->startPolling("global", m_config.pollIntervalMs);
         m_friendsService->startPresenceUpdates(2000, m_config.presenceStaleMs);
         
-        m_chatView->setStatusMessage("Connected");
+        m_chatView->setStatusMessage("🟢 Battle station online - Ready for combat!");
     }
     
     void onMessageToSend(const QString& text) {
         if (m_chatService) {
             bool success = m_chatService->sendMessage("global", m_currentUsername, m_currentDisplayName, text);
             if (!success) {
-                m_chatView->setStatusMessage("Failed to send message");
+                m_chatView->setStatusMessage("❌ Message transmission failed - Check battlefield communications");
             }
         }
     }
@@ -78,9 +78,9 @@ private slots:
     
     void onHeartbeatSent(bool success) {
         if (!success) {
-            m_chatView->setStatusMessage("Connection issues...");
+            m_chatView->setStatusMessage("⚠️ Communication disruption detected...");
         } else {
-            m_chatView->setStatusMessage("Connected");
+            m_chatView->setStatusMessage("🟢 Battle station online - Ready for combat!");
         }
     }
 
@@ -100,9 +100,29 @@ protected:
 
 private:
     void setupUI() {
-        setWindowTitle("CppGameChat");
-        setMinimumSize(800, 600);
-        resize(1000, 700);
+        setWindowTitle("⚔ CppGameChat - Battlefield Commander ⚔");
+        setMinimumSize(900, 700);
+        resize(1200, 800);
+        
+        // Set main window styling
+        setStyleSheet(
+            "QMainWindow { "
+            "   background-color: #131823; "
+            "   color: #ffffff; "
+            "}"
+            "QStatusBar { "
+            "   background-color: #002b4f; "
+            "   color: #0098fa; "
+            "   border-top: 2px solid #0098fa; "
+            "   font-weight: bold; "
+            "   padding: 4px; "
+            "}"
+            "QMenuBar { "
+            "   background-color: #002b4f; "
+            "   color: #ffffff; "
+            "   border-bottom: 2px solid #0098fa; "
+            "}"
+        );
         
         m_stackedWidget = new QStackedWidget(this);
         setCentralWidget(m_stackedWidget);
@@ -113,7 +133,7 @@ private:
         m_stackedWidget->addWidget(m_loginView);
         m_stackedWidget->addWidget(m_chatView);
         
-        statusBar()->showMessage("Ready");
+        statusBar()->showMessage("🔥 Battle Station Ready - Awaiting Commands");
     }
     
     void loadConfig() {
